@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-import { useAsyncError } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import SwimmingCenterCard from "../components/SwimmingCenterCard";
-
-const supabase = createClient(
-  "https://lzhfsxogrzcptpmnmibi.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6aGZzeG9ncnpjcHRwbW5taWJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQwNjYyOTYsImV4cCI6MjAyOTY0MjI5Nn0.n0iXsmiQwVHwc903LjVGFGzSlVbWrnVMccQFBk7Q6eQ"
-);
+import { supabase } from "../config/supabase-client";
 
 function HomePage() {
   const [locations, setLocations] = useState([]);
@@ -64,7 +57,6 @@ function HomePage() {
 
   return (
     <div className="h-screen w-full scrollbar-hide">
-      <Navbar />
       <div className="flex-col justify-center items-center">
         <div className="flex-col justify-center items-center container mx-auto mt-4">
           <h1 className="text-4xl font-semibold text-center text-black">

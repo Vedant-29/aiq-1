@@ -1,46 +1,12 @@
 import React from "react";
-import { createClient } from "@supabase/supabase-js";
-import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import { useEffect } from "react";
-
-
-const supabase = createClient(
-  "https://lzhfsxogrzcptpmnmibi.supabase.co",
-  "hbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6aGZzeG9ncnpjcHRwbW5taWJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQwNjYyOTYsImV4cCI6MjAyOTY0MjI5Nn0.n0iXsmiQwVHwc903LjVGFGzSlVbWrnVMccQFBk7Q6eQ"
-);
+import { useAuth } from "../hooks/auth";
 
 function ProfilePage() {
-  const [user, setUser] = React.useState(null);
-  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { signOut } = useAuth();
 
-  useEffect(() => {
-    const session = supabase.auth.getSession();
-    setUser(session?.user);
-
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setUser(session?.user);
-      }
-    );
-
-    // Cleanup function
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, []);
-
-  const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.log("Error signing out: ", error.message);
-    } else {
-      navigate("/");
-    }
-  };
-
-  const redirectToSignIn = () => {
-    navigate("/sign-in");
+  const handleLogout = () => {
+    signOut();
   }
 
   return user ? (
@@ -58,7 +24,7 @@ function ProfilePage() {
               </div>
               <div className="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7">
                 <button
-                  onClick={signOut}
+                  onClick={handleLogout}
                   className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   Sign Out
