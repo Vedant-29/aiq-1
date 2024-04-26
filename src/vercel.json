@@ -6,11 +6,11 @@
         },
         {
             "src": "/sign-in",
-            "dest": "/"
+            "dest": "/sign-in"
         },
         {
             "src": "/sign-up",
-            "dest": "/"
+            "dest": "/sign-up"
         }
     ]
 }
