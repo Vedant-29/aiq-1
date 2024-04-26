@@ -1,6 +1,7 @@
-import React from 'react'
+import React from "react";
 import { createClient } from "@supabase/supabase-js";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const supabase = createClient(
   "https://lzhfsxogrzcptpmnmibi.supabase.co",
@@ -15,21 +16,22 @@ function ProfilePage() {
     if (error) {
       console.log("Error signing out: ", error.message);
     } else {
-      navigate('/home');
+      navigate("/home");
     }
   };
 
   return (
     <div>
+      <Navbar />
       ProfilePage
-      <button 
-        onClick={signOut} 
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      <button
+        onClick={signOut}
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
       >
         Sign Out
       </button>
     </div>
-  )
+  );
 }
 
-export default ProfilePage
+export default ProfilePage;
