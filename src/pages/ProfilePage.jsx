@@ -35,7 +35,7 @@ function ProfilePage() {
     if (error) {
       console.log("Error signing out: ", error.message);
     } else {
-      navigate("/home");
+      navigate("/");
     }
   };
 

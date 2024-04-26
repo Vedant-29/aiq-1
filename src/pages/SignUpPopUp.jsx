@@ -26,7 +26,7 @@ function SignUpPopUp() {
       setRMsg("User created successfully");
       setEmail("");
       setPassword("");
-      navigate("/home");
+      navigate("/");
     }
   }
 
