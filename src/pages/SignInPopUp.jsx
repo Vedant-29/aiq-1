@@ -3,7 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const supabaseUrl = "https://lzhfsxogrzcptpmnmibi.supabase.co";
-const supabaseKey = process.env.SUPABASE_KEY;
+const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 function SignInPopUp() {

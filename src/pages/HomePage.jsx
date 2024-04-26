@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { useAsyncError } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import SwimmingCenterCard from "../components/SwimmingCenterCard";
 
 const supabaseUrl = "https://lzhfsxogrzcptpmnmibi.supabase.co";
-const supabaseKey = process.env.SUPABASE_KEY;
+const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 function HomePage() {
