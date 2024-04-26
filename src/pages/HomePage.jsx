@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { useAsyncError } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import SwimmingCenterCard from "../components/SwimmingCenterCard";
 
-const supabaseUrl = "https://lzhfsxogrzcptpmnmibi.supabase.co";
-const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(
+  "https://lzhfsxogrzcptpmnmibi.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6aGZzeG9ncnpjcHRwbW5taWJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQwNjYyOTYsImV4cCI6MjAyOTY0MjI5Nn0.n0iXsmiQwVHwc903LjVGFGzSlVbWrnVMccQFBk7Q6eQ"
+);
 
 function HomePage() {
   const [locations, setLocations] = useState([]);
