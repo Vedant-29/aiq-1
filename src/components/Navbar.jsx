@@ -36,7 +36,7 @@ function Navbar() {
           {user ? (
             <Link
               to="/profile"
-              className="inline-block text-sm px-4 py-2 leading-none border rounded text-white  mt-4 lg:mt-0"
+              className="inline-block text-md px-4 py-3 leading-none rounded text-[#0BBD52] font-bold bg-[#E2F9E3] mt-4 lg:mt-2"
             >
               Profile
             </Link>

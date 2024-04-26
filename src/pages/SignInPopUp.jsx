@@ -26,7 +26,7 @@ function SignInPopUp() {
       setRMsg("User created successfully");
       setEmail("");
       setPassword("");
-      navigate("/");
+      navigate("/home");
     }
   }
 
@@ -36,7 +36,7 @@ function SignInPopUp() {
       <div className="text-center">
         <div className="flex flex-col items-center justify-center mb-4">
           <h1 className="text-2xl font-medium">Welcome Back</h1>
-          <p className="mt-1">Let's dive in.</p>
+          <p className="mt-1">Welcome Let's dive in.</p>
         </div>
         <form onSubmit={signInWithEmail}>
           <div className="mb-2">
