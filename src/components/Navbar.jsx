@@ -9,7 +9,9 @@ function Navbar() {
     <nav className="bg-white p-3">
       <div className="container mx-auto flex items-center justify-between flex-wrap px-4 sm:px-5">
         <div className="flex items-center flex-shrink-0 text-black mr-6">
+          <Link to="/">
           <span className="font-semibold text-xl tracking-tight">Logo</span>
+          </Link>
         </div>
         <div className="flex flex-row">
           {user ? (

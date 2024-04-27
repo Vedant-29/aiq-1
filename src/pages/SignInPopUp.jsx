@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -29,6 +29,18 @@ function SignInPopUp() {
       navigate("/");
     }
   }
+
+  useEffect(() => {
+    const handleBackButton = () => {
+      navigate(-1);
+    } 
+
+    window.addEventListener('popstate', handleBackButton);
+
+    return () => {
+      window.removeEventListener('popstate', handleBackButton);
+    };
+  }, []);
 
   return (
     <main className="flex items-start justify-center min-h-screen bg-white">
