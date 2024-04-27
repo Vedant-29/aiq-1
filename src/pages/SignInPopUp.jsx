@@ -30,18 +30,6 @@ function SignInPopUp() {
     }
   }
 
-  useEffect(() => {
-    const handleBackButton = () => {
-      navigate(-1);
-    } 
-
-    window.addEventListener('popstate', handleBackButton);
-
-    return () => {
-      window.removeEventListener('popstate', handleBackButton);
-    };
-  }, []);
-
   return (
     <main className="flex items-start justify-center min-h-screen bg-white">
       <div className="bg-transparent py-10 px-12 rounded-[12px] m-4">

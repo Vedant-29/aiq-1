@@ -1,32 +1,30 @@
-import { Navigate } from "react-router-dom"
-import { useAuth } from "../hooks/auth"
-import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { Route, Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "../hooks/auth";
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children, ...rest }) => {
   const { user } = useAuth();
-  const navigate = useNavigate();
-  const [backClicked, setBackClicked] = useState(false);
+  const location = useLocation();
 
-  useEffect(() => {
-    const handleBackButton = () => {
-      setBackClicked(true);
-      navigate(-1);
-    };
+  // Check if the user is not authenticated and just came from the sign-up page
+  const fromSignUpPage = location.state?.fromSignUpPage;
 
-    window.addEventListener('popstate', handleBackButton);
-
-    return () => {
-      window.removeEventListener('popstate', handleBackButton);
-    };
-  }, [navigate]);
-
-  if (!user && !backClicked) {
-    // user is not authenticated and back button has not been clicked
-    return <Navigate to="/sign-up" />;
+  if (!user && !fromSignUpPage) {
+    // Save the intended location before redirecting to the sign-up page
+    localStorage.setItem("intendedLocation", location.pathname);
   }
-  return <>{children}</>
-}
 
-export default ProtectedRoute
+  // Check if the user is not authenticated and just came from the sign-up page
+  const fromProtectedRoute = location.state?.fromProtectedRoute;
+
+  return user ? (
+    <Route {...rest}>{children}</Route>
+  ) : (
+    <Navigate
+      to={fromProtectedRoute ? "/" : "/sign-up"}
+      replace
+      state={{ fromSignUpPage: true }}
+    />
+  );
+};
+
+export default ProtectedRoute;
