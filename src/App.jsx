@@ -18,19 +18,15 @@ function App() {
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/sign-up" element={<SignUpPopUp />} />
             <Route exact path="/sign-in" element={<SignInPopUp />} />
-            <Route exact path="/payment-redirect" element={
-              <ProtectedRoute>
-                <PaymentPortal />
-              </ProtectedRoute>
-            } />
+            <Route
+              exact
+              path="/payment-redirect"
+              element={<ProtectedRoute element={<PaymentPortal />} />}
+            />
             <Route
               exact
               path="/profile"
-              element={
-                <ProtectedRoute>
-                  <ProfilePage />
-                </ProtectedRoute>
-              }
+              element={<ProtectedRoute element={<ProfilePage />} />}
             />
           </Routes>
         </RootLayout>

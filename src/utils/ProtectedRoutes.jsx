@@ -1,7 +1,7 @@
-import { Route, Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/auth";
 
-const ProtectedRoute = ({ children, ...rest }) => {
+const ProtectedRoute = ({ element }) => {
   const { user } = useAuth();
   const location = useLocation();
 
@@ -17,7 +17,7 @@ const ProtectedRoute = ({ children, ...rest }) => {
   const fromProtectedRoute = location.state?.fromProtectedRoute;
 
   return user ? (
-    <Route {...rest}>{children}</Route>
+    element
   ) : (
     <Navigate
       to={fromProtectedRoute ? "/" : "/sign-up"}
