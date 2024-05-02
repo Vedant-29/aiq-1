@@ -64,7 +64,7 @@ function PaymentPortal() {
       const { data, error } = await supabase
         .from("user_profiles")
         .select()
-        .eq("id", user.id)
+        .eq("id", user)
         .single();
 
       if (error) {
