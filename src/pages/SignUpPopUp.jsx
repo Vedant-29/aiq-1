@@ -16,19 +16,41 @@ function SignUpPopUp() {
 
   async function signUpNewUser(e) {
     e.preventDefault();
-    const { data, error } = await supabase.auth.signUp({
+    const { data : signUpData, error: signUpError} = await supabase.auth.signUp({
       email,
       password,
     });
+    
 
-    if (error) {
-      setRMsg(error.message);
+
+    if (signUpError) {
+      setRMsg(signUpError.message);
     } else {
       setRMsg("User created successfully");
-      setEmail("");
-      setPassword("");
-      navigate("/");
+      
+
+      const userId = signUpData.user.id;
+      const emailId = signUpData.user.email;
+
+      const { data : insertData, error : insertError } = await supabase.from("user_profiles").insert([
+        {
+          id: userId,
+          user_email: emailId
+        }
+      ]);  
+
+      if (insertError) {
+        setRMsg(insertError.message);
+      } else {
+        setRMsg("User created successfully");
+        setEmail("");
+        setPassword("");
+        navigate("/");
+      }
+
     }
+
+    
   }
 
   return (
