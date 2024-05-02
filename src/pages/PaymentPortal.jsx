@@ -3,6 +3,8 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/auth";
 import { supabase } from "../config/supabase-client";
 import Modal from 'react-modal';
+import { useState } from 'react';
+
 
 
 function PaymentPortal() {
