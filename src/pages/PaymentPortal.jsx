@@ -53,6 +53,18 @@ function PaymentPortal() {
         throw error;
       }
 
+      const userDetailsComplete = await checkUserDetails(user.id);
+
+      if (userDetailsComplete) {
+        createTransaction(
+          user.id,
+          locationNameOut,
+          swimmingCentresOut,
+          planOut,
+          "success"
+        );
+      }
+
       handlePopupClose();
     } catch (error) {
       console.error("Error updating user profile:", error.message);
@@ -228,7 +240,10 @@ function PaymentPortal() {
               type="text"
               value={userProfile.user_college_name || ""}
               onChange={(e) =>
-                setUserProfile({ ...userProfile, user_college_name: e.target.value })
+                setUserProfile({
+                  ...userProfile,
+                  user_college_name: e.target.value,
+                })
               }
             />
           </label>
@@ -238,7 +253,10 @@ function PaymentPortal() {
               type="text"
               value={userProfile.user_mobileno || ""}
               onChange={(e) =>
-                setUserProfile({ ...userProfile, user_mobileno: e.target.value })
+                setUserProfile({
+                  ...userProfile,
+                  user_mobileno: e.target.value,
+                })
               }
             />
           </label>
