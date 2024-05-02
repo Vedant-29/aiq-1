@@ -59,12 +59,12 @@ function PaymentPortal() {
     }
   };
 
-  const checkUserDetails = async (userId) => {
+  const checkUserDetails = async (user) => {
     try {
       const { data, error } = await supabase
         .from("user_profiles")
         .select()
-        .eq("id", userId)
+        .eq("id", user)
         .single();
 
       if (error) {
@@ -208,7 +208,7 @@ function PaymentPortal() {
               type="text"
               value={userProfile.user_name || ""}
               onChange={(e) =>
-                setUserProfile({ ...userProfile, name: e.target.value })
+                setUserProfile({ ...userProfile, user_name: e.target.value })
               }
             />
           </label>
