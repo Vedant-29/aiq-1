@@ -21,30 +21,27 @@ function PaymentPortal() {
         .select()
         .eq("id", userId)
         .single();
-
+  
       if (error) {
         throw error;
       }
-
+  
       // Check if any field is null
       const userDetailsComplete = Object.values(data).every(
         (value) => value !== null
       );
-
-      if (userDetailsComplete) {
-        Navigate("/profile");
-      } else {
+  
+      if (!userDetailsComplete) {
         setPopupVisible(true);
       }
+  
+      return userDetailsComplete;
     } catch (error) {
       console.error("Error checking user details:", error.message);
+      return false;
     }
   };
-
-  const handlePopupClose = () => {
-    setPopupVisible(false);
-  };
-
+  
   const createTransaction = async (
     user,
     location,
@@ -52,8 +49,12 @@ function PaymentPortal() {
     plan,
     msg
   ) => {
-    await checkUserDetails(user);
-
+    const userDetailsComplete = await checkUserDetails(user);
+  
+    if (!userDetailsComplete) {
+      return null;
+    }
+  
     const { data, error } = await supabase
       .from("transactions")
       .insert({
@@ -63,15 +64,19 @@ function PaymentPortal() {
         plan_name: plan,
         status: msg,
       });
-
+  
     if (error) {
       console.error("Error inserting transaction:", error.message);
       return null;
     } else {
       navigate("/profile");
     }
-
+  
     return data;
+  };
+
+  const handlePopupClose = () => {
+    setPopupVisible(false);
   };
 
   return (
