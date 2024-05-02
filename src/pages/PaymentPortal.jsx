@@ -212,6 +212,36 @@ function PaymentPortal() {
               }
             />
           </label>
+          <label>
+            Age:
+            <input
+              type="text"
+              value={userProfile.user_age || ""}
+              onChange={(e) =>
+                setUserProfile({ ...userProfile, user_age: e.target.value })
+              }
+            />
+          </label>
+          <label>
+            College Name:
+            <input
+              type="text"
+              value={userProfile.user_college_name || ""}
+              onChange={(e) =>
+                setUserProfile({ ...userProfile, user_college_name: e.target.value })
+              }
+            />
+          </label>
+          <label>
+            College Name:
+            <input
+              type="text"
+              value={userProfile.user_mobileno || ""}
+              onChange={(e) =>
+                setUserProfile({ ...userProfile, user_mobileno: e.target.value })
+              }
+            />
+          </label>
           {/* Add more fields as needed */}
           <button type="submit">Submit</button>
         </form>
