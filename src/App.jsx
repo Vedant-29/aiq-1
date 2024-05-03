@@ -8,6 +8,7 @@ import SignInPopUp from "./pages/SignInPopUp";
 import RootLayout from "./components/RootLayout";
 import { AuthProvider } from "./hooks/auth";
 import ProtectedRoute from "./utils/ProtectedRoutes";
+import UserTransactions from "./pages/UserTransactions";
 
 function App() {
   return (
@@ -22,6 +23,11 @@ function App() {
               exact
               path="/payment-redirect"
               element={<ProtectedRoute element={<PaymentPortal />} />}
+            />
+            <Route
+              exact
+              path="/transaction-details"
+              element={<ProtectedRoute element={<UserTransactions />} />}
             />
             <Route
               exact

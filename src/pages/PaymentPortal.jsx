@@ -205,16 +205,25 @@ function PaymentPortal() {
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
-            backgroundColor: "white",
+            backgroundColor: "#f0f0f0",
             padding: "20px",
-            borderRadius: "4px",
+            borderRadius: "10px",
             width: "80%",
             maxWidth: "500px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           },
         }}
       >
-        <form onSubmit={handleFormSubmit}>
-          <label>
+        <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
+          <label
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginBottom: "10px",
+            }}
+          >
             Name:
             <input
               type="text"
@@ -222,48 +231,42 @@ function PaymentPortal() {
               onChange={(e) =>
                 setUserProfile({ ...userProfile, user_name: e.target.value })
               }
+              style={{
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
             />
           </label>
-          <label>
-            Age:
-            <input
-              type="text"
-              value={userProfile.user_age || ""}
-              onChange={(e) =>
-                setUserProfile({ ...userProfile, user_age: e.target.value })
-              }
-            />
-          </label>
-          <label>
-            College Name:
-            <input
-              type="text"
-              value={userProfile.user_college_name || ""}
-              onChange={(e) =>
-                setUserProfile({
-                  ...userProfile,
-                  user_college_name: e.target.value,
-                })
-              }
-            />
-          </label>
-          <label>
-            College Name:
-            <input
-              type="text"
-              value={userProfile.user_mobileno || ""}
-              onChange={(e) =>
-                setUserProfile({
-                  ...userProfile,
-                  user_mobileno: e.target.value,
-                })
-              }
-            />
-          </label>
-          {/* Add more fields as needed */}
-          <button type="submit">Submit</button>
+          {/* Repeat for other fields */}
+          <button
+            type="submit"
+            style={{
+              padding: "10px",
+              borderRadius: "5px",
+              border: "none",
+              backgroundColor: "#007BFF",
+              color: "white",
+              cursor: "pointer",
+            }}
+          >
+            Submit
+          </button>
         </form>
-        <button onClick={handlePopupClose}>Close</button>
+        <button
+          onClick={handlePopupClose}
+          style={{
+            padding: "10px",
+            borderRadius: "5px",
+            border: "none",
+            backgroundColor: "#dc3545",
+            color: "white",
+            cursor: "pointer",
+            marginTop: "10px",
+          }}
+        >
+          Close
+        </button>
       </Modal>
     </div>
   );
