@@ -4,6 +4,7 @@ import { supabase } from "../config/supabase-client";
 import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import Modal from "react-modal";
+import { Link } from "react-router-dom";
 
 function ProfilePage() {
   const { user } = useAuth();
@@ -276,6 +277,9 @@ function ProfilePage() {
                 >
                   Sign Out
                 </button>
+                <Link to="/scan">
+                  Scan Qr Now
+                </Link>
               </div>
             </div>
           )}

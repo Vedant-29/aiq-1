@@ -9,6 +9,7 @@ import RootLayout from "./components/RootLayout";
 import { AuthProvider } from "./hooks/auth";
 import ProtectedRoute from "./utils/ProtectedRoutes";
 import UserTransactions from "./pages/UserTransactions";
+import ScanningPage from "./pages/ScanningPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/sign-up" element={<SignUpPopUp />} />
             <Route exact path="/sign-in" element={<SignInPopUp />} />
+            <Route exact path="/scan" element={<ScanningPage />} />
             <Route
               exact
               path="/payment-redirect"
