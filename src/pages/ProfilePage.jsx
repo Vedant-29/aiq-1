@@ -4,6 +4,22 @@ import { supabase } from "../config/supabase-client";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
+import QRCode from "react-qr-code";
+import Modal from "react-modal";
+
+const QRPopup = ({ qrData, onClose }) => {
+  return (
+    <div className="popup">
+      <div className="popup-content">
+        <button className="close-btn" onClick={onClose}>
+          Close
+        </button>
+        <h2>QR Code</h2>
+        <QRCode value={JSON.stringify(qrData)} />
+      </div>
+    </div>
+  );
+};
 
 function ProfilePage() {
   const { user } = useAuth();
@@ -13,6 +29,8 @@ function ProfilePage() {
 
   const [activeButton, setActiveButton] = useState("profile");
   const [showTransactions, setShowTransactions] = useState(false);
+  const [qrData, setQRData] = useState(null);
+  const [popupVisible, setPopupVisible] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -21,8 +39,36 @@ function ProfilePage() {
     }
   }, [user]);
 
-  console.log(userProfile);
+  // QR Code generation function
+  const generateQRCode = async (transaction) => {
+    const qrCodeData = {
+      transacName: transaction.swimming_center,
+      transacLocation: transaction.location_name,
+      transacPlanName: transaction.plan_name,
+      // Add more data as needed
+    };
 
+    setQRData(qrCodeData);
+    setPopupVisible(true);
+    console.log("QR code data:", qrCodeData);
+
+    await updateTransactionWithQRCode(transaction.id, qrCodeData);
+  };
+
+  const updateTransactionWithQRCode = async (transactionId, qrData) => {
+    const { error } = await supabase
+      .from("transactions")
+      .update({ gen_qr: JSON.stringify(qrData) })
+      .eq("id", transactionId);
+
+    if (error) {
+      console.error("Error updating transaction with QR code:", error.message);
+    } else {
+      console.log("Transaction updated with QR code successfully.");
+    }
+  };
+
+  // Profile Page functions
   const fetchUserProfile = async () => {
     let { data, error } = await supabase
       .from("user_profiles")
@@ -53,6 +99,10 @@ function ProfilePage() {
   const handleProfileClick = () => {
     setShowTransactions(false);
     setActiveButton("profile");
+  };
+
+  const handlePopupClose = () => {
+    setPopupVisible(false);
   };
 
   const handleSignOut = async () => {
@@ -133,14 +183,17 @@ function ProfilePage() {
                         </div>
                       </div>
                       <div className="w-full flex-col flex items-start text-sm mt-0">
-                      <div className="hidden sm:block focus:outline-none bg-transparent font-normal text-sm py-1 text-start rounded mr-2">
-                            <span className="font-medium">Location:</span>{" "}
-                            {transaction.location_name}
-                          </div>
+                        <div className="hidden sm:block focus:outline-none bg-transparent font-normal text-sm py-1 text-start rounded mr-2">
+                          <span className="font-medium">Location:</span>{" "}
+                          {transaction.location_name}
+                        </div>
                         <div className="flex w-full justify-end mt-4 sm:mt-2">
-                          <div className="focus:outline-none bg-[#E75A5A] px-3 py-1 text-white text-sm rounded-sm cursor-pointer font-medium">
+                          <div
+                            onClick={() => generateQRCode(transaction)}
+                            className="focus:outline-none bg-[#E75A5A] px-3 py-1 text-white text-sm rounded-sm cursor-pointer font-medium"
+                          >
                             {user ? (
-                              <Link>Print Ticket</Link>
+                              <p>Print Ticket</p>
                             ) : (
                               // Replace this with your actual signup popup
                               <div onClick={() => alert("Please sign up!")}>
@@ -149,6 +202,23 @@ function ProfilePage() {
                             )}
                           </div>
                         </div>
+                        <Modal
+                          isOpen={popupVisible}
+                          onRequestClose={handlePopupClose}
+                          className="fixed inset-0 flex items-center justify-center z-50 overflow-auto bg-black bg-opacity-50"
+                        >
+                          <div className="w-4/5 max-w-md mx-auto bg-white rounded p-5 flex flex-col items-center sm:my-8">
+                            <button
+                              onClick={handlePopupClose}
+                              className="p-2 rounded border-none bg-red-600 text-white cursor-pointer mt-2"
+                            >
+                              Close
+                            </button>
+
+                            <h2>QR Code</h2>
+                            <QRCode value={JSON.stringify(qrData)} />
+                          </div>
+                        </Modal>
                       </div>
                     </div>
                   </div>

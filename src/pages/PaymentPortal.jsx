@@ -194,79 +194,36 @@ function PaymentPortal() {
       <Modal
         isOpen={popupVisible}
         onRequestClose={handlePopupClose}
-        style={{
-          overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          },
-          content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: "#f0f0f0",
-            padding: "20px",
-            borderRadius: "10px",
-            width: "80%",
-            maxWidth: "500px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          },
-        }}
+        className="fixed inset-0 flex items-center justify-center z-50 overflow-auto bg-black bg-opacity-50"
       >
-        <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
-          <label
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              marginBottom: "10px",
-            }}
-          >
-            Name:
-            <input
-              type="text"
-              value={userProfile.user_name || ""}
-              onChange={(e) =>
-                setUserProfile({ ...userProfile, user_name: e.target.value })
-              }
-              style={{
-                padding: "10px",
-                borderRadius: "5px",
-                border: "1px solid #ccc",
-              }}
-            />
-          </label>
-          {/* Repeat for other fields */}
+        <div className="w-4/5 max-w-md mx-auto bg-white rounded p-5 flex flex-col items-center sm:my-8">
+          <form onSubmit={handleFormSubmit} className="w-full">
+            <label className="flex flex-col mb-2">
+              Name:
+              <input
+                type="text"
+                value={userProfile.user_name || ""}
+                onChange={(e) =>
+                  setUserProfile({ ...userProfile, user_name: e.target.value })
+                }
+                className="p-2 rounded border border-gray-300"
+              />
+            </label>
+            {/* Repeat for other fields */}
+            <button
+              type="submit"
+              className="p-2 rounded border-none bg-blue-500 text-white cursor-pointer"
+            >
+              Submit
+            </button>
+          </form>
           <button
-            type="submit"
-            style={{
-              padding: "10px",
-              borderRadius: "5px",
-              border: "none",
-              backgroundColor: "#007BFF",
-              color: "white",
-              cursor: "pointer",
-            }}
+            onClick={handlePopupClose}
+            className="p-2 rounded border-none bg-red-600 text-white cursor-pointer mt-2"
           >
-            Submit
+            Close
           </button>
-        </form>
-        <button
-          onClick={handlePopupClose}
-          style={{
-            padding: "10px",
-            borderRadius: "5px",
-            border: "none",
-            backgroundColor: "#dc3545",
-            color: "white",
-            cursor: "pointer",
-            marginTop: "10px",
-          }}
-        >
-          Close
-        </button>
+        </div>
       </Modal>
     </div>
   );
