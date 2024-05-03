@@ -102,15 +102,15 @@ function ProfilePage() {
                     className="w-full px-3 py-3 shadow-custom-light transition-shadow duration-300 rounded-lg mt-2.5"
                   >
                     <div className="w-full px-1 flex-col items-center">
-                      <div className="w-full flex items-center">
+                      <div className="w-full flex items-center justify-between">
                         <div>
-                        <h1 className="text-lg grow font-medium max-w-xs pr-4 sm:pr-0 sm:max-w-full">
-                          {transaction.swimming_center}
-                        </h1>
-                        <div className="focus:outline-none bg-transparent font-normal text-sm py-1 text-start rounded mr-2">
-                          <span className="font-medium">Location:</span>{" "}
-                          {transaction.location_name}
-                        </div>
+                          <h1 className="text-lg grow font-medium max-w-xs pr-4 sm:pr-0 sm:max-w-full">
+                            {transaction.swimming_center}
+                          </h1>
+                          <div className="block sm:hidden focus:outline-none bg-transparent font-normal text-sm py-1 text-start rounded mr-2">
+                            <span className="font-medium">Location:</span>{" "}
+                            {transaction.location_name}
+                          </div>
                         </div>
                         <div className="flex flex-col sm:flex-row">
                           <div className="focus:outline-none font-medium text-xs sm:text-sm mb-2 sm:mb-0 px-3 py-1 text-center rounded-sm bg-[#EBE8FD] mr-0 sm:mr-2">
@@ -133,7 +133,10 @@ function ProfilePage() {
                         </div>
                       </div>
                       <div className="w-full flex-col flex items-start text-sm mt-0">
-                        
+                      <div className="hidden sm:block focus:outline-none bg-transparent font-normal text-sm py-1 text-start rounded mr-2">
+                            <span className="font-medium">Location:</span>{" "}
+                            {transaction.location_name}
+                          </div>
                         <div className="flex w-full justify-end mt-4 sm:mt-2">
                           <div className="focus:outline-none bg-[#E75A5A] px-3 py-1 text-white text-sm rounded-sm cursor-pointer font-medium">
                             {user ? (
