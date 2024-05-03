@@ -2,24 +2,8 @@ import React from "react";
 import { useAuth } from "../hooks/auth";
 import { supabase } from "../config/supabase-client";
 import { useEffect, useState } from "react";
-import { useMediaQuery } from "react-responsive";
-import { Link } from "react-router-dom";
 import QRCode from "react-qr-code";
 import Modal from "react-modal";
-
-const QRPopup = ({ qrData, onClose }) => {
-  return (
-    <div className="popup">
-      <div className="popup-content">
-        <button className="close-btn" onClick={onClose}>
-          Close
-        </button>
-        <h2>QR Code</h2>
-        <QRCode value={JSON.stringify(qrData)} />
-      </div>
-    </div>
-  );
-};
 
 function ProfilePage() {
   const { user } = useAuth();
@@ -92,8 +76,8 @@ function ProfilePage() {
   };
 
   const handleTransactionsClick = () => {
-    setShowTransactions(true);
     setActiveButton("transactions");
+    setShowTransactions(true);
   };
 
   const handleProfileClick = () => {
@@ -128,7 +112,7 @@ function ProfilePage() {
                   </div>
                   <div
                     onClick={handleTransactionsClick}
-                    className={`flex items-center justify-center focus:outline-none bg-transparent text-black px-6 px-6 lg:px-11 py-2.5 rounded-sm cursor-pointer font-medium sm:text-xs lg:text-base ${
+                    className={`flex items-center justify-center focus:outline-none text-black px-6 px-6 lg:px-11 py-2.5 rounded-sm cursor-pointer font-medium sm:text-xs lg:text-base ${
                       activeButton === "transactions"
                         ? "bg-[#EBE8FD]"
                         : "bg-transparent"
@@ -188,35 +172,45 @@ function ProfilePage() {
                           {transaction.location_name}
                         </div>
                         <div className="flex w-full justify-end mt-4 sm:mt-2">
-                          <div
-                            onClick={() => generateQRCode(transaction)}
-                            className="focus:outline-none bg-[#E75A5A] px-3 py-1 text-white text-sm rounded-sm cursor-pointer font-medium"
-                          >
-                            {user ? (
+                          {user && transaction.status === "success" ? (
+                            <div
+                              onClick={() => generateQRCode(transaction)}
+                              className="focus:outline-none text-sm rounded-sm cursor-pointer font-medium bg-[#E75A5A] text-white px-3 py-1"
+                            >
                               <p>Print Ticket</p>
-                            ) : (
-                              // Replace this with your actual signup popup
-                              <div onClick={() => alert("Please sign up!")}>
-                                Add to Cart
-                              </div>
-                            )}
-                          </div>
+                            </div>
+                          ) : (
+                            <div className="bg-[#FFBF00] px-3 py-1 text-sm rounded-sm font-medium">
+                              <p>Payment Pending</p>
+                            </div>
+                          )}
                         </div>
                         <Modal
                           isOpen={popupVisible}
                           onRequestClose={handlePopupClose}
-                          className="fixed inset-0 flex items-center justify-center z-50 overflow-auto bg-black bg-opacity-50"
+                          className="fixed inset-0 flex items-start justify-center z-50 overflow-auto bg-black bg-opacity-50"
                         >
-                          <div className="w-4/5 max-w-md mx-auto bg-white rounded p-5 flex flex-col items-center sm:my-8">
-                            <button
-                              onClick={handlePopupClose}
-                              className="p-2 rounded border-none bg-red-600 text-white cursor-pointer mt-2"
-                            >
-                              Close
-                            </button>
-
-                            <h2>QR Code</h2>
-                            <QRCode value={JSON.stringify(qrData)} />
+                          <div className="bg-white my-auto rounded-md flex flex-col items-center sm:my-8">
+                            <div className=" flex items-center justify-center rounded-t-md text-2xl w-full py-3 shadow-custom-dark">
+                              Print Ticket
+                            </div>
+                            <div className="p-8 flex-col justify-center items-center">
+                              <QRCode value={JSON.stringify(qrData)} />
+                              <div className="focus:outline-none font-medium text-xs sm:text-sm mt-4 mb-2 sm:mb-0 px-3 py-2 text-center rounded-sm bg-[#EBE8FD]">
+                                Download Pdf
+                              </div>
+                              <div className="focus:outline-none font-medium text-xs sm:text-sm mt-2 mb-2 sm:mb-0 px-3 py-2 text-center rounded-sm bg-[#EBE8FD]">
+                                Receieve on Gmail
+                              </div>
+                              <div className="flex items-center justify-center">
+                                <button
+                                  onClick={handlePopupClose}
+                                  className="px-2 py-1 mt-8 rounded border-none bg-red-600 text-white cursor-pointer mt-2"
+                                >
+                                  Close
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </Modal>
                       </div>
