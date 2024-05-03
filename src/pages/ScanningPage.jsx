@@ -3,8 +3,8 @@ import { supabase } from "../config/supabase-client";
 import { QrReader } from "react-qr-reader";
 
 const ScanningPage = () => {
-  const [transacName, setTransacName] = useState("");
-  const [transacLocation, setTransacLocation] = useState("");
+  const [transacName, setTransacName] = useState("GYMKHANA CLUB SECTOR-29, GURUGRAM");
+  const [transacLocation, setTransacLocation] = useState("Gurugram");
   const [scanResult, setScanResult] = useState(null);
 
   const handleScan = async (data) => {
@@ -21,8 +21,9 @@ const ScanningPage = () => {
         const { data: transactions, error } = await supabase
           .from("transactions")
           .select("*")
-          .eq("transacName", qrData.transacName)
-          .eq("transacLocation", qrData.transacLocation);
+          .eq("swimming_center", qrData.transacName)
+          .eq("location_name", qrData.transacLocation)
+          .eq("status", "success")
 
         if (error) {
           console.error("Error fetching transaction details:", error.message);
@@ -49,6 +50,7 @@ const ScanningPage = () => {
   };
 
   const handleTransacNameChange = (event) => {
+    console.log(event.target.value)
     setTransacName(event.target.value);
   };
 
@@ -101,6 +103,7 @@ const ScanningPage = () => {
         onError={handleError}
         onScan={handleScan}
         onResult={handleScan}
+        facingMode="environment"
         style={{ width: "100%" }}
       />
       {/* Display scan result */}
