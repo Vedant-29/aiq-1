@@ -6,6 +6,8 @@ import QRCode from "react-qr-code";
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
 
+Modal.setAppElement('#root');
+
 function ProfilePage() {
   const { user } = useAuth();
   const { signOut } = useAuth();
@@ -230,7 +232,7 @@ function ProfilePage() {
                     type="email"
                     value={userProfile.user_name || ""}
                     readOnly
-                    className="mt-1 px-2 py-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:outline-none"
+                    className="mt-1 px-2 py-2 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:outline-none"
                   />
                 </label>
                 <label className="block text-gray-800">
@@ -239,7 +241,7 @@ function ProfilePage() {
                     type="text"
                     value={userProfile.user_email || ""}
                     readOnly
-                    className="mt-1 px-2 py-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:outline-none"
+                    className="mt-1 px-2 py-2 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:outline-none"
                   />
                 </label>
                 <label className="block text-gray-800">
@@ -248,7 +250,7 @@ function ProfilePage() {
                     type="number"
                     value={userProfile.user_age || ""}
                     readOnly
-                    className="mt-1 px-2 py-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:outline-none"
+                    className="mt-1 px-2 py-2 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:outline-none"
                   />
                 </label>
                 <label className="block text-gray-800">
@@ -257,7 +259,7 @@ function ProfilePage() {
                     type="text"
                     value={userProfile.user_college_name || ""}
                     readOnly
-                    className="mt-1 px-2 py-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:outline-none"
+                    className="mt-1 px-2 py-2 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:outline-none"
                   />
                 </label>
                 <label className="block text-gray-800">
@@ -266,7 +268,7 @@ function ProfilePage() {
                     type="tel"
                     value={userProfile.user_mobileno || ""}
                     readOnly
-                    className="mt-1 px-2 py-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:outline-none"
+                    className="mt-1 px-2 py-2 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:outline-none"
                   />
                 </label>
               </form>
