@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { supabase } from "../config/supabase-client";
 import { QrReader } from "react-qr-reader";
 
 const ScanningPage = () => {
-  const [transacName, setTransacName] = useState("GYMKHANA CLUB SECTOR-29, GURUGRAM");
-  const [transacLocation, setTransacLocation] = useState("Gurugram");
+  const transacNameRef = useRef("GYMKHANA CLUB SECTOR-29, GURUGRAM");
+  const transacLocationRef = useRef("Gurugram");
   const [scanResult, setScanResult] = useState(null);
 
   const handleScan = async (data) => {
@@ -14,8 +14,9 @@ const ScanningPage = () => {
 
       // Check if scanned data matches selected transacName and transacLocation
       if (
-        qrData.transacName === transacName &&
-        qrData.transacLocation === transacLocation
+        console.log(qrData.transacName, transacNameRef.current),
+        qrData.transacName === transacNameRef.current &&
+        qrData.transacLocation === transacLocationRef.current
       ) {
         // Fetch transaction details from Supabase
         const { data: transactions, error } = await supabase
@@ -50,12 +51,11 @@ const ScanningPage = () => {
   };
 
   const handleTransacNameChange = (event) => {
-    console.log(event.target.value)
-    setTransacName(event.target.value);
+    transacNameRef.current = event.target.value;
   };
 
   const handleTransacLocationChange = (event) => {
-    setTransacLocation(event.target.value);
+    transacLocationRef.current = event.target.value;
   };
 
   return (
@@ -65,7 +65,7 @@ const ScanningPage = () => {
         <label>
           Select Transac Name:
           <select
-            value={transacName}
+            value={transacNameRef.current}
             onChange={handleTransacNameChange}
           >
             <option value="GYMKHANA CLUB SECTOR-29, GURUGRAM">GYMKHANA CLUB SECTOR-29, GURUGRAM</option>
@@ -84,7 +84,7 @@ const ScanningPage = () => {
         <label>
           Select Transac Location:
           <select
-            value={transacLocation}
+            value={transacLocationRef.current}
             onChange={handleTransacLocationChange}
           >
             <option value="Gurugram">Gurugram</option>
