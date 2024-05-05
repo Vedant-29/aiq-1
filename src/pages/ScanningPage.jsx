@@ -103,7 +103,7 @@ const ScanningPage = () => {
         onError={handleError}
         onScan={handleScan}
         onResult={handleScan}
-        facingMode="environment"
+        constraints={ {facingMode: 'environment'}}
         style={{ width: "100%" }}
       />
       {/* Display scan result */}
