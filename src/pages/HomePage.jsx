@@ -4,7 +4,7 @@ import { supabase } from "../config/supabase-client";
 import { Navigate, useNavigate } from "react-router-dom";
 
 function HomePage() {
-  const navigate = useNavigate();
+  const navigate = useNavigate();   
   
   const [locations, setLocations] = useState([]);
   const [swimmingCenters, setSwimmingCenters] = useState([]);
